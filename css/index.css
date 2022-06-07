@@ -45,6 +45,12 @@ body {
 .main .buttons .iconfont {
   margin: 0 5px;
   font-size: 32px;
+  cursor: pointer;
+  transition: all 0.3;
+}
+
+.main .buttons .iconfont:hover {
+  opacity: 0.7;
 }
 .main .texts {
   margin-left: 20px;
@@ -65,4 +71,5 @@ body {
 }
 .player .time {
   text-align: right;
+  margin-top: 4px;
 }
