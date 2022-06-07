@@ -4,6 +4,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+/* body */
 body {
   position: relative;
   height: 100vh;
@@ -16,8 +17,10 @@ body {
   right: 0;
   bottom: 0;
   z-index: -1;
-  background: url(http://jirengu_1.gitee.io/music/if-you.png) center center
-    no-repeat;
+  /* background: url(http://jirengu_1.gitee.io/music/if-you.png) center center
+    no-repeat; */
+  border-radius: 4px;
+  background-color: #ccc;
   background-size: cover;
 }
 /* player */
@@ -25,17 +28,41 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%);
-  width: 600px;
-  background-color: #fff;
+  transform: translate(-50%, -50%);
+  width: 580px;
+  padding: 20px 40px;
+  background: rgba(255, 255, 255, 0.7);
+  color: rgb(243, 137, 137);
 }
 .main {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
+  margin-bottom: 18px;
 }
 .main .buttons {
-  margin: 0 20px;
+  margin: 10px 20px 0px 20px;
 }
 .main .buttons .iconfont {
   margin: 0 5px;
+  font-size: 32px;
+}
+.main .texts {
+  margin-left: 20px;
+}
+.main .texts h3 {
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+.player .bar {
+  height: 3px;
+  background-color: #ccc;
+}
+.player .bar .progress {
+  height: 100%;
+  width: 50%;
+  border-radius: 3px;
+  background-color: rgb(243, 137, 137);
+}
+.player .time {
+  text-align: right;
 }
