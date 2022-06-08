@@ -44,7 +44,6 @@ let index = 0;
 
 let musicAudio = new Audio();
 init();
-
 $playBtn.onclick = () => {
   if ($playBtn.classList.contains("icon-pause")) {
     musicAudio.pause();
@@ -62,15 +61,21 @@ function init() {
   $coverBg.style.backgroundSize = "cover";
   musicAudio.src = thisMusic.src;
 }
+function togglePlayIcon() {
+  $playBtn.classList.remove("icon-play");
+  $playBtn.classList.add("icon-pause");
+}
 $nextBtn.onclick = () => {
   index++;
   index = index % musicList.length;
   init();
   musicAudio.play();
+  togglePlayIcon();
 };
 $previousBtn.onclick = () => {
   index--;
   index = (index + musicList.length) % musicList.length;
   init();
   musicAudio.play();
+  togglePlayIcon();
 };
