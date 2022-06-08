@@ -20,8 +20,9 @@ body {
   /* background: url(http://jirengu_1.gitee.io/music/if-you.png) center center
     no-repeat; */
   border-radius: 4px;
-  background-color: #ccc;
+  background: url("../assets/bg-img/不再犹豫.jpg") center center no-repeat;
   background-size: cover;
+  filter: blur(3px);
 }
 /* player */
 .player {

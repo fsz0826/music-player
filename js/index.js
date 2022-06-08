@@ -1,51 +1,50 @@
-console.log(111);
 // $表示单个DOM对象，$$表示DOM数组
 let musicList = [
   {
-    src: "http://jirengu_1.gitee.io/music/ifyou.mp3",
-    title: "IF YOU",
-    auther: "Big Bang",
-    img: "http://jirengu_1.gitee.io/music/if-you.png",
+    src: "../assets/music/本草纲目-周杰伦.mp3",
+    title: "本草纲目",
+    auther: "周杰伦",
+    img: "../assets/bg-img/本草纲目.jpg",
   },
   {
-    src: "http://jirengu_1.gitee.io/music/夏日示爱-郭彩洁-暖手心.m4a",
-    title: "暖手心",
-    auther: "郭彩洁",
-    img: "http://jirengu_1.gitee.io/music/夏日示爱-郭彩洁-暖手心.jpg",
+    src: "../assets/music/不再犹豫-Beyond.mp3",
+    title: "不再犹豫",
+    auther: "Beyond",
+    img: "../assets/bg-img/不再犹豫.jpg",
   },
   {
-    src: "http://jirengu_1.gitee.io/music/玫瑰.mp3",
-    title: "玫瑰",
-    auther: "贰佰",
-    img: "http://jirengu_1.gitee.io/music/玫瑰.jpeg",
+    src: "../assets/music/光辉岁月-Beyond.mp3",
+    title: "光辉岁月",
+    auther: "Beyond",
+    img: "../assets/bg-img/光辉岁月.jpg",
   },
   {
-    src: "http://jirengu_1.gitee.io/music/成全-林宥嘉-成全.m4a",
-    title: "成全",
-    auther: "林宥嘉",
-    img: "http://jirengu_1.gitee.io/music/成全-林宥嘉-成全.jpg",
+    src: "../assets/music/海阔天空-Beyond.mp3",
+    title: "海阔天空",
+    auther: "Beyond",
+    img: "../assets/bg-img/海阔天空.jpg",
   },
   {
-    src: "http://jirengu_1.gitee.io/music/飞行器的执行周期-郭顶-水星记.m4a",
-    title: "水星记",
-    auther: "郭顶",
-    img: "http://jirengu_1.gitee.io/music/飞行器的执行周期-郭顶-水星记.jpg",
+    src: "../assets/music/灰色轨迹-Beyond.mp3",
+    title: "灰色轨迹",
+    auther: "Beyond",
+    img: "../assets/bg-img/灰色轨迹.jpg",
   },
 ];
-
-let index = 0;
-let thisMusic = musicList[index];
 
 const $ = (selector) => document.querySelector(selector);
 const $previousBtn = $(".icon-play-left");
 const $playingBtn = $(".icon-playing");
 const $nextBtn = $(".icon-play-right");
-
+const $coverBg = $("div.cover");
 const $title = $(".player .main .texts h3");
 const $author = $(".player .main .texts p");
-$title.innerHTML = thisMusic.title;
-$author.innerHTML = thisMusic.auther;
-$playingBtn.onclick = (e) => {
+
+let index = 0;
+
+init();
+
+$playingBtn.onclick = () => {
   if ($playingBtn.classList.contains("icon-pause")) {
     $playingBtn.classList.remove("icon-pause");
     $playingBtn.classList.add("icon-playing");
@@ -54,19 +53,20 @@ $playingBtn.onclick = (e) => {
     $playingBtn.classList.add("icon-pause");
   }
 };
+function init() {
+  let thisMusic = musicList[index];
+  $title.innerHTML = thisMusic.title;
+  $author.innerHTML = thisMusic.auther;
+  $coverBg.style.backgroundImage = "url(" + thisMusic.img + ")";
+  $coverBg.style.backgroundSize = "cover";
+}
 $nextBtn.onclick = () => {
   index++;
   index = index % musicList.length;
-
-  thisMusic = musicList[index];
-  $title.innerHTML = thisMusic.title;
-  $author.innerHTML = thisMusic.auther;
+  init();
 };
 $previousBtn.onclick = () => {
   index--;
   index = (index + musicList.length) % musicList.length;
-
-  thisMusic = musicList[index];
-  $title.innerHTML = thisMusic.title;
-  $author.innerHTML = thisMusic.auther;
+  init();
 };
