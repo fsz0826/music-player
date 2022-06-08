@@ -40,10 +40,13 @@ const $coverBg = $("div.cover");
 const $title = $(".player .main .texts h3");
 const $author = $(".player .main .texts p");
 
-let index = 0;
+//获取musicList的index随机整数值
+let index = parseInt(Math.random() * musicList.length);
 
 let musicAudio = new Audio();
+
 init();
+
 $playBtn.onclick = () => {
   if ($playBtn.classList.contains("icon-pause")) {
     musicAudio.pause();
@@ -53,6 +56,8 @@ $playBtn.onclick = () => {
   $playBtn.classList.toggle("icon-pause");
   $playBtn.classList.toggle("icon-play");
 };
+
+//初始化歌曲信息
 function init() {
   let thisMusic = musicList[index];
   $title.innerHTML = thisMusic.title;
@@ -61,10 +66,13 @@ function init() {
   $coverBg.style.backgroundSize = "cover";
   musicAudio.src = thisMusic.src;
 }
+
+//下一曲默认播放，改变play按钮icon
 function togglePlayIcon() {
   $playBtn.classList.remove("icon-play");
   $playBtn.classList.add("icon-pause");
 }
+
 $nextBtn.onclick = () => {
   index++;
   index = index % musicList.length;
@@ -72,6 +80,7 @@ $nextBtn.onclick = () => {
   musicAudio.play();
   togglePlayIcon();
 };
+
 $previousBtn.onclick = () => {
   index--;
   index = (index + musicList.length) % musicList.length;
