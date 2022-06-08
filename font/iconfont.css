@@ -13,7 +13,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-playing:before {
+.icon-play:before {
   content: "\e6b0";
 }
 

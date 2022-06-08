@@ -34,7 +34,7 @@ let musicList = [
 
 const $ = (selector) => document.querySelector(selector);
 const $previousBtn = $(".icon-play-left");
-const $playingBtn = $(".icon-playing");
+const $playBtn = $(".icon-play");
 const $nextBtn = $(".icon-play-right");
 const $coverBg = $("div.cover");
 const $title = $(".player .main .texts h3");
@@ -42,16 +42,17 @@ const $author = $(".player .main .texts p");
 
 let index = 0;
 
+let musicAudio = new Audio();
 init();
 
-$playingBtn.onclick = () => {
-  if ($playingBtn.classList.contains("icon-pause")) {
-    $playingBtn.classList.remove("icon-pause");
-    $playingBtn.classList.add("icon-playing");
+$playBtn.onclick = () => {
+  if ($playBtn.classList.contains("icon-pause")) {
+    musicAudio.pause();
   } else {
-    $playingBtn.classList.remove("icon-playing");
-    $playingBtn.classList.add("icon-pause");
+    musicAudio.play();
   }
+  $playBtn.classList.toggle("icon-pause");
+  $playBtn.classList.toggle("icon-play");
 };
 function init() {
   let thisMusic = musicList[index];
@@ -59,14 +60,17 @@ function init() {
   $author.innerHTML = thisMusic.auther;
   $coverBg.style.backgroundImage = "url(" + thisMusic.img + ")";
   $coverBg.style.backgroundSize = "cover";
+  musicAudio.src = thisMusic.src;
 }
 $nextBtn.onclick = () => {
   index++;
   index = index % musicList.length;
   init();
+  musicAudio.play();
 };
 $previousBtn.onclick = () => {
   index--;
   index = (index + musicList.length) % musicList.length;
   init();
+  musicAudio.play();
 };
