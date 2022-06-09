@@ -73,44 +73,59 @@ Math.floor(musicAudio.currentTime);
 let newTime = "00:00",
   newTimeHour = 0,
   newTimeMinute = 0,
-  newTimeSecond = 58;
+  newTimeSecond = 0;
 let initialTime = 55; //设置初始时间
 setInterval(() => {
+  newTimeSecond++;
+  if (newTimeSecond < 10) {
+    newTimeSecond = "0" + newTimeSecond;
+  }
+  console.log(newTimeSecond);
+  if (newTimeSecond === 60) {
+    newTimeSecond = "00";
+    newTimeMinute++;
+    if (newTimeMinute < 10) {
+      newTimeMinute = "0" + newTimeMinute;
+    }
+    console.log(newTimeMinute + "1111");
+  }
+
   // initTime = initTime - 0;
   // newTimeSecond = initialTime;
   // newTimeSecond = newTimeSecond - 0; //当秒为00时，转换为数值型
-  newTimeSecond++;
+  // newTimeSecond++;
   // console.log(newTimeSecond);
-  if (newTimeSecond < 60) {
-    if (newTimeSecond < 10) {
-      newTimeSecond = "0" + newTimeSecond;
-    }
-    newTimeSecond = newTimeSecond;
-    // console.log(newTimeSecond);
-    if (newTimeSecond === 60) {
-      newTimeSecond = 0;
-      console.log("11111111111");
-      // newTimeMinute = newTimeMinute - 0; //当分钟为00时，转换为数值型
-      newTimeMinute++;
-      if (newTimeMinute < 10) {
-        newTimeMinute = "0" + newTimeMinute;
-      }
-      newTimeMinute = newTimeMinute;
-      console.log(newTimeMinute);
-      if (newTimeMinute === 60) {
-        newTimeMinute = 0;
-        newTimeHour++;
-        if (newTimeHour < 10) {
-          newTimeHour = "0" + newTimeHour;
-        }
-        newTimeHour = newTimeHour;
-      }
-    }
-  }
-  if (newTimeHour > 0) {
-    newTime = newTimeHour + ":" + newTimeMinute + ":" + newTimeSecond;
-  }
-  newTime = newTimeMinute + ":" + newTimeSecond;
+  // if (newTimeSecond < 60) {
+  //   if (newTimeSecond < 10) {
+  //     newTimeSecond = "0" + newTimeSecond;
+  //   }
+  //   newTimeSecond = newTimeSecond;
+  //   // console.log(newTimeSecond);
+  //   if (newTimeSecond === 60) {
+  //     newTimeSecond = 0;
+  //     console.log("11111111111");
+  //     // newTimeMinute = newTimeMinute - 0; //当分钟为00时，转换为数值型
+  //     newTimeMinute++;
+  //     if (newTimeMinute < 10) {
+  //       newTimeMinute = "0" + newTimeMinute;
+  //     }
+  //     newTimeMinute = newTimeMinute;
+  //     console.log(newTimeMinute);
+  //     if (newTimeMinute === 60) {
+  //       newTimeMinute = 0;
+  //       newTimeHour++;
+  //       if (newTimeHour < 10) {
+  //         newTimeHour = "0" + newTimeHour;
+  //       }
+  //       newTimeHour = newTimeHour;
+  //     }
+  //   }
+  // }
+  // if (newTimeHour > 0) {
+  //   newTime = newTimeHour + ":" + newTimeMinute + ":" + newTimeSecond;
+  // }
+  // newTime = newTimeMinute + ":" + newTimeSecond;
+
   // else if ((latestTime = 60)) {
   //   latestTime = "00";
   //   newTimeSecond = latestTime;
@@ -119,7 +134,7 @@ setInterval(() => {
   //   if (newTimeMinute < 10) {
   //     newTimeMinute = "0" + newTimeMinute;
   //   }
-  //   newTime = newTimeMinute + ":" + newTimeSecond;
+  newTime = newTimeMinute + ":" + newTimeSecond;
   // } else if ((newTimeMinute = 60)) {
   //   newTimeMinute = "00";
   //   newTimeHour++;
@@ -131,9 +146,9 @@ setInterval(() => {
   $timeText.innerHTML = newTime;
 }, 1000);
 
-musicAudio.ondurationchange = () => {
-  console.log(musicAudio.duration);
-};
+// musicAudio.ondurationchange = () => {
+//   console.log(musicAudio.duration);
+// };
 // musicAudio.load();
 // musicAudio.oncanplay = () => {
 //   console.log(musicAudio.duration);
