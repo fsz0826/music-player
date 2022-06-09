@@ -39,6 +39,7 @@ const $nextBtn = $(".icon-play-right");
 const $coverBg = $("div.cover");
 const $title = $(".player .main .texts h3");
 const $author = $(".player .main .texts p");
+let $timeText = $(".player .time");
 
 //获取musicList的index随机整数值
 let index = parseInt(Math.random() * musicList.length);
@@ -65,8 +66,42 @@ function init() {
   $coverBg.style.backgroundImage = "url(" + thisMusic.img + ")";
   $coverBg.style.backgroundSize = "cover";
   musicAudio.src = thisMusic.src;
+  $timeText.innerHTML = "00:00";
 }
-
+Math.floor(musicAudio.currentTime);
+let newTime,
+  newTimeHour,
+  newTimeMinute = "59",
+  newTimeSecond;
+let latestTime = 55;
+setInterval(() => {
+  latestTime = latestTime - 0;
+  latestTime++;
+  if (latestTime < 60) {
+    if (latestTime < 10) {
+      latestTime = "0" + latestTime;
+    }
+    newTimeSecond = latestTime;
+  }
+  // else if ((latestTime = 60)) {
+  //   latestTime = "00";
+  //   newTimeSecond = latestTime;
+  //   newTimeMinute = newTimeMinute - 0;
+  //   newTimeMinute++;
+  //   if (newTimeMinute < 10) {
+  //     newTimeMinute = "0" + newTimeMinute;
+  //   }
+  //   newTime = newTimeMinute + ":" + newTimeSecond;
+  // } else if ((newTimeMinute = 60)) {
+  //   newTimeMinute = "00";
+  //   newTimeHour++;
+  //   if (newTimeHour < 10) {
+  //     newTimeHour = "0" + newTimeHour;
+  //   }
+  //   newTime = newTimeHour + ":" + newTimeMinute + ":" + newTimeSecond;
+  // }
+  $timeText.innerHTML = newTime;
+}, 1000);
 //下一曲默认播放，改变play按钮icon
 function togglePlayIcon() {
   $playBtn.classList.remove("icon-play");
