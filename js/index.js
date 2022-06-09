@@ -69,20 +69,47 @@ function init() {
   $timeText.innerHTML = "00:00";
 }
 Math.floor(musicAudio.currentTime);
-let newTime,
-  newTimeHour,
-  newTimeMinute = "59",
-  newTimeSecond;
-let latestTime = 55;
+let newTime = "00:00",
+  newTimeHour = 0,
+  newTimeMinute = 0,
+  newTimeSecond = 58;
+let initialTime = 55; //设置初始时间
 setInterval(() => {
-  latestTime = latestTime - 0;
-  latestTime++;
-  if (latestTime < 60) {
-    if (latestTime < 10) {
-      latestTime = "0" + latestTime;
+  // initTime = initTime - 0;
+  // newTimeSecond = initialTime;
+  // newTimeSecond = newTimeSecond - 0; //当秒为00时，转换为数值型
+  newTimeSecond++;
+  // console.log(newTimeSecond);
+  if (newTimeSecond < 60) {
+    if (newTimeSecond < 10) {
+      newTimeSecond = "0" + newTimeSecond;
     }
-    newTimeSecond = latestTime;
+    newTimeSecond = newTimeSecond;
+    // console.log(newTimeSecond);
+    if (newTimeSecond === 60) {
+      newTimeSecond = 0;
+      console.log("11111111111");
+      // newTimeMinute = newTimeMinute - 0; //当分钟为00时，转换为数值型
+      newTimeMinute++;
+      if (newTimeMinute < 10) {
+        newTimeMinute = "0" + newTimeMinute;
+      }
+      newTimeMinute = newTimeMinute;
+      console.log(newTimeMinute);
+      if (newTimeMinute === 60) {
+        newTimeMinute = 0;
+        newTimeHour++;
+        if (newTimeHour < 10) {
+          newTimeHour = "0" + newTimeHour;
+        }
+        newTimeHour = newTimeHour;
+      }
+    }
   }
+  if (newTimeHour > 0) {
+    newTime = newTimeHour + ":" + newTimeMinute + ":" + newTimeSecond;
+  }
+  newTime = newTimeMinute + ":" + newTimeSecond;
   // else if ((latestTime = 60)) {
   //   latestTime = "00";
   //   newTimeSecond = latestTime;
