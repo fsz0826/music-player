@@ -51,6 +51,7 @@ init();
 $playBtn.onclick = () => {
   if ($playBtn.classList.contains("icon-pause")) {
     musicAudio.pause();
+    console.log(musicAudio.currentTime);
   } else {
     musicAudio.play();
   }
@@ -129,6 +130,15 @@ setInterval(() => {
   // }
   $timeText.innerHTML = newTime;
 }, 1000);
+
+musicAudio.ondurationchange = () => {
+  console.log(musicAudio.duration);
+};
+// musicAudio.load();
+// musicAudio.oncanplay = () => {
+//   console.log(musicAudio.duration);
+// };
+
 //下一曲默认播放，改变play按钮icon
 function togglePlayIcon() {
   $playBtn.classList.remove("icon-play");
