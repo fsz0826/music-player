@@ -69,90 +69,52 @@ function init() {
   musicAudio.src = thisMusic.src;
   $timeText.innerHTML = "00:00";
 }
-Math.floor(musicAudio.currentTime);
 let newTime = "00:00",
-  newTimeHour = 0,
-  newTimeMinute = 0,
-  newTimeSecond = 0;
-let initialTime = 55; //设置初始时间
+  newTimeHour = "00",
+  newTimeMinute = "00",
+  newTimeSecond = "00";
+let songTime = 0; //设置歌曲初始时间为0
 setInterval(() => {
+  songTime++; //每过一秒，歌曲时间+1
+  newTimeSecond = newTimeSecond - 0;
   newTimeSecond++;
+  //当秒<10时，以0开头
   if (newTimeSecond < 10) {
     newTimeSecond = "0" + newTimeSecond;
   }
-  console.log(newTimeSecond);
+  // 每过60秒，分+1，秒归零
   if (newTimeSecond === 60) {
+    newTimeMinute = newTimeMinute - 0;
     newTimeSecond = "00";
     newTimeMinute++;
+    //当分<10时，以0开头
     if (newTimeMinute < 10) {
       newTimeMinute = "0" + newTimeMinute;
     }
-    console.log(newTimeMinute + "1111");
   }
-
-  // initTime = initTime - 0;
-  // newTimeSecond = initialTime;
-  // newTimeSecond = newTimeSecond - 0; //当秒为00时，转换为数值型
-  // newTimeSecond++;
-  // console.log(newTimeSecond);
-  // if (newTimeSecond < 60) {
-  //   if (newTimeSecond < 10) {
-  //     newTimeSecond = "0" + newTimeSecond;
-  //   }
-  //   newTimeSecond = newTimeSecond;
-  //   // console.log(newTimeSecond);
-  //   if (newTimeSecond === 60) {
-  //     newTimeSecond = 0;
-  //     console.log("11111111111");
-  //     // newTimeMinute = newTimeMinute - 0; //当分钟为00时，转换为数值型
-  //     newTimeMinute++;
-  //     if (newTimeMinute < 10) {
-  //       newTimeMinute = "0" + newTimeMinute;
-  //     }
-  //     newTimeMinute = newTimeMinute;
-  //     console.log(newTimeMinute);
-  //     if (newTimeMinute === 60) {
-  //       newTimeMinute = 0;
-  //       newTimeHour++;
-  //       if (newTimeHour < 10) {
-  //         newTimeHour = "0" + newTimeHour;
-  //       }
-  //       newTimeHour = newTimeHour;
-  //     }
-  //   }
-  // }
-  // if (newTimeHour > 0) {
-  //   newTime = newTimeHour + ":" + newTimeMinute + ":" + newTimeSecond;
-  // }
-  // newTime = newTimeMinute + ":" + newTimeSecond;
-
-  // else if ((latestTime = 60)) {
-  //   latestTime = "00";
-  //   newTimeSecond = latestTime;
-  //   newTimeMinute = newTimeMinute - 0;
-  //   newTimeMinute++;
-  //   if (newTimeMinute < 10) {
-  //     newTimeMinute = "0" + newTimeMinute;
-  //   }
-  newTime = newTimeMinute + ":" + newTimeSecond;
-  // } else if ((newTimeMinute = 60)) {
-  //   newTimeMinute = "00";
-  //   newTimeHour++;
-  //   if (newTimeHour < 10) {
-  //     newTimeHour = "0" + newTimeHour;
-  //   }
-  //   newTime = newTimeHour + ":" + newTimeMinute + ":" + newTimeSecond;
-  // }
+  //每过60分，小时+1，分钟归零
+  if (newTimeMinute === 60) {
+    newTimeMinute = "00";
+    newTimeHour = newTimeHour - 0;
+    newTimeHour++;
+    //当小时<10时，以0开头
+    if (newTimeHour < 10) {
+      newTimeHour = "0" + newTimeHour;
+    }
+  }
+  //当歌曲时间不超过一个小时时，不显示小时
+  if (newTimeHour - 0 > 0) {
+    newTime = newTimeHour + ":" + newTimeMinute + ":" + newTimeSecond;
+  } else {
+    newTime = newTimeMinute + ":" + newTimeSecond;
+  }
   $timeText.innerHTML = newTime;
 }, 1000);
 
-// musicAudio.ondurationchange = () => {
-//   console.log(musicAudio.duration);
-// };
-// musicAudio.load();
-// musicAudio.oncanplay = () => {
-//   console.log(musicAudio.duration);
-// };
+//获取歌曲总时长,秒为单位
+musicAudio.ondurationchange = () => {
+  console.log(Math.floor(musicAudio.duration));
+};
 
 //下一曲默认播放，改变play按钮icon
 function togglePlayIcon() {
