@@ -56,7 +56,6 @@ function init() {
   $coverBg.style.backgroundImage = "url(" + thisMusic.img + ")";
   $coverBg.style.backgroundSize = "cover";
   musicAudio.src = thisMusic.src;
-  $timeText.innerHTML = "00:00";
 }
 init();
 
@@ -79,28 +78,31 @@ function togglePlayIcon() {
 }
 
 //下一曲按钮功能定义
-$nextBtn.onclick = () => {
+$nextBtn.onclick = loadNextMusic;
+function loadNextMusic() {
   index++;
   index = index % musicList.length;
   init();
   musicAudio.play();
   togglePlayIcon();
-};
+}
 
 //上一曲按钮功能定义
-$previousBtn.onclick = () => {
+$previousBtn.onclick = loadPreviousMusic;
+function loadPreviousMusic() {
   index--;
   index = (index + musicList.length) % musicList.length;
   init();
   musicAudio.play();
   togglePlayIcon();
-};
+}
 
 //获取歌曲总时长,秒为单位
 // musicAudio.ondurationchange = () => {
 //   console.log(Math.floor(musicAudio.duration));
 // };
 
+//当歌曲时间发生改变时，触发进图条更新事件
 musicAudio.shouldUpdate = true;
 musicAudio.ontimeupdate = function () {
   let _this = this;
@@ -131,3 +133,15 @@ function updateProgerss() {
   }
   $timeText.innerHTML = text;
 }
+
+//播放完毕自动播放下一曲
+musicAudio.onended = loadNextMusic;
+
+//点击进度条调整播放时间
+$barCont.onclick = function (e) {
+  console.log(e.offsetX);
+  console.log($barCont.offsetWidth);
+  let percent = e.offsetX / parseInt($barCont.offsetWidth);
+  $progressBar.style.width = percent * 100 + "%";
+  musicAudio.currentTime = percent * musicAudio.duration;
+};
