@@ -139,8 +139,6 @@ musicAudio.onended = loadNextMusic;
 
 //点击进度条调整播放时间
 $barCont.onclick = function (e) {
-  console.log(e.offsetX);
-  console.log($barCont.offsetWidth);
   let percent = e.offsetX / parseInt($barCont.offsetWidth);
   $progressBar.style.width = percent * 100 + "%";
   musicAudio.currentTime = percent * musicAudio.duration;
