@@ -143,3 +143,16 @@ $barCont.onclick = function (e) {
   $progressBar.style.width = percent * 100 + "%";
   musicAudio.currentTime = percent * musicAudio.duration;
 };
+let isPress = false;
+$barCont.onmousedown = () => {
+  isPress = true;
+};
+$barCont.onmousemove = function (e) {
+  if (isPress) {
+    let percent = e.offsetX / parseInt($barCont.offsetWidth);
+    $progressBar.style.width = percent * 100 + "%";
+  }
+};
+$barCont.onmouseup = () => {
+  isPress = false;
+};
