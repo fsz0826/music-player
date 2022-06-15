@@ -62,10 +62,11 @@ body {
 .player .bar {
   height: 3px;
   background-color: #ccc;
+  cursor: pointer;
 }
 .player .bar .progress {
   height: 100%;
-  width: 50%;
+  width: 0%;
   border-radius: 3px;
   background-color: rgb(243, 137, 137);
 }

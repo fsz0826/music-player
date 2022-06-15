@@ -39,25 +39,14 @@ const $nextBtn = $(".icon-play-right");
 const $coverBg = $("div.cover");
 const $title = $(".player .main .texts h3");
 const $author = $(".player .main .texts p");
-let $timeText = $(".player .time");
+const $timeText = $(".player .time");
+const $barCont = $(".player .bar");
+const $progressBar = $(".player .bar .progress");
 
 //获取musicList的index随机整数值
 let index = parseInt(Math.random() * musicList.length);
 
 let musicAudio = new Audio();
-
-init();
-
-$playBtn.onclick = () => {
-  if ($playBtn.classList.contains("icon-pause")) {
-    musicAudio.pause();
-    console.log(musicAudio.currentTime);
-  } else {
-    musicAudio.play();
-  }
-  $playBtn.classList.toggle("icon-pause");
-  $playBtn.classList.toggle("icon-play");
-};
 
 //初始化歌曲信息
 function init() {
@@ -69,10 +58,18 @@ function init() {
   musicAudio.src = thisMusic.src;
   $timeText.innerHTML = "00:00";
 }
+init();
 
-//获取歌曲总时长,秒为单位
-musicAudio.ondurationchange = () => {
-  console.log(Math.floor(musicAudio.duration));
+//播放暂停按钮功能定义
+$playBtn.onclick = () => {
+  if ($playBtn.classList.contains("icon-pause")) {
+    musicAudio.pause();
+    console.log(musicAudio.currentTime);
+  } else {
+    musicAudio.play();
+  }
+  $playBtn.classList.toggle("icon-pause");
+  $playBtn.classList.toggle("icon-play");
 };
 
 //下一曲默认播放，改变play按钮icon
@@ -81,6 +78,7 @@ function togglePlayIcon() {
   $playBtn.classList.add("icon-pause");
 }
 
+//下一曲按钮功能定义
 $nextBtn.onclick = () => {
   index++;
   index = index % musicList.length;
@@ -89,6 +87,7 @@ $nextBtn.onclick = () => {
   togglePlayIcon();
 };
 
+//上一曲按钮功能定义
 $previousBtn.onclick = () => {
   index--;
   index = (index + musicList.length) % musicList.length;
@@ -96,3 +95,39 @@ $previousBtn.onclick = () => {
   musicAudio.play();
   togglePlayIcon();
 };
+
+//获取歌曲总时长,秒为单位
+// musicAudio.ondurationchange = () => {
+//   console.log(Math.floor(musicAudio.duration));
+// };
+
+musicAudio.shouldUpdate = true;
+musicAudio.ontimeupdate = function () {
+  let _this = this;
+  if (_this.shouldUpdate) {
+    updateProgerss();
+    _this.shouldUpdate = false;
+  }
+  setTimeout(function () {
+    musicAudio.shouldUpdate = true;
+  }, 1000);
+};
+
+//进度条和时间更新
+function updateProgerss() {
+  let percent = (musicAudio.currentTime / musicAudio.duration) * 100 + "%";
+  $progressBar.style.width = percent;
+  let hours = parseInt(musicAudio.currentTime / 60 / 60) + "";
+  let minutes = parseInt(musicAudio.currentTime / 60) + "";
+  let seconds = parseInt(musicAudio.currentTime % 60) + "";
+  hours = hours.length === 2 ? hours : "0" + hours;
+  minutes = minutes.length === 2 ? minutes : "0" + minutes;
+  seconds = seconds.length === 2 ? seconds : "0" + seconds;
+  let text;
+  if (parseInt(hours) > 0) {
+    text = hours + ":" + minutes + ":" + seconds;
+  } else {
+    text = minutes + ":" + seconds;
+  }
+  $timeText.innerHTML = text;
+}
